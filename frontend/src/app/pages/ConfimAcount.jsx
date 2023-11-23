@@ -14,7 +14,7 @@ const ConfirmAcount = () => {
   useEffect(() => {
     const confirmarCuenta = async () => {
       try {
-        const url = `${process.env.NEXT_PUBLIC_API_URL}/api/users/confirm/${id}`;
+        const url = `http://johnatanortiz.tech:4000/api/users/confirm/${id}`;
         const { data } = await axios(url);
         console.log(data);
         setAlerta({

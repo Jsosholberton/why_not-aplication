@@ -20,7 +20,7 @@ function TournamentCard() {
     const getTournaments = async () => {
       try {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/tournaments`
+          `http://johnatanortiz.tech:4000/api/tournaments`
         );
         setTournaments(response.data);
         setLoading(false);
@@ -53,7 +53,7 @@ function TournamentCard() {
         },
       };
       const response = await axios.patch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/tournaments/join/${id}`,
+        `http://johnatanortiz.tech:4000/api/tournaments/join/${id}`,
         { user: auth._id },
         config
       );
@@ -79,7 +79,7 @@ function TournamentCard() {
         },
       };
       const response = await axios.patch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/tournaments/leave/${id}`,
+        `http://johnatanortiz.tech:4000/api/tournaments/leave/${id}`,
         { user: auth._id },
         config
       );

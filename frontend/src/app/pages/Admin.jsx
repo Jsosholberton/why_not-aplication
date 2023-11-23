@@ -58,7 +58,7 @@ function Admin() {
       };
       try {
         const { data } = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/users/all`,
+          `http://johnatanortiz.tech:4000/api/users/all`,
           config
         );
         setUsers(data);
@@ -75,7 +75,7 @@ function Admin() {
       };
       try {
         const { data } = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/tournaments`,
+          `http://johnatanortiz.tech:4000/api/tournaments`,
           config
         );
         setTournaments(data);
@@ -142,7 +142,7 @@ function Admin() {
       try {
         const tournamentFormData = { name, description, date, time, location };
         const response = await axios.patch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/tournaments/${id}`,
+          `http://johnatanortiz.tech:4000/api/tournaments/${id}`,
           tournamentFormData,
           {
             headers: {
@@ -174,7 +174,7 @@ function Admin() {
     try {
       const tournamentFormData = { name, description, date, time, location };
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/tournaments`,
+        `http://johnatanortiz.tech:4000/api/tournaments`,
         tournamentFormData,
         {
           headers: {
@@ -211,7 +211,7 @@ function Admin() {
     try {
       const updateUser = async () => {
         const response = await axios.patch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/users/${user._id}`,
+          `http://johnatanortiz.tech:4000/api/users/${user._id}`,
           config,
           user
         );
@@ -232,7 +232,7 @@ function Admin() {
     };
     try {
       const response = axios.delete(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/tournaments/${id}`,
+        `http://johnatanortiz.tech:4000/api/tournaments/${id}`,
         config
       );
       router.push("/admin");

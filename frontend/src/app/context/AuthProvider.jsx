@@ -25,7 +25,7 @@ const AuthProvider = ({ children }) => {
       };
       try {
         const { data } = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/users/profile`,
+          `http://johnatanortiz.tech:4000/api/users/profile`,
           config
         );
         setAuth(data);

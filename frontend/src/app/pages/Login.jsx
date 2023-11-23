@@ -25,7 +25,7 @@ const Login = () => {
     }
     try {
       const { data } = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/users/login`,
+        `http://johnatanortiz.tech:4000/api/users/login`,
         { email, password }
       );
 
