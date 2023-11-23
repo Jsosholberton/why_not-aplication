@@ -27,7 +27,7 @@ const emailReg = async (datos) => {
     text: "Confirma tu cuenta en la liga WhyNot", // Plain text version of the email
     html: `<p>Hola ${name} Confirma tu cuenta en la liga WhyNot!</p>
         <p>Tu cuenta aún no esta lista, confirma clickeando el siguiente enlace:
-        <a href="${process.env.FRONTEND_URL}confirmar/${token}">Confirmar cuenta</a> </p>
+        <a href="${process.env.FRONTEND_URL}/confirm/${token}">Confirmar cuenta</a> </p>
         <p>Si no solicitaste esto, puedes ignorar este mensaje</p>
         `,
   });
@@ -58,7 +58,7 @@ const emailPwd = async (datos) => {
     text: "Restaura tu cuenta en la LigaWhyNot",
     html: `<p>Hola: ${name} restaura tu cuenta en la LigaWhyNot</p>
           <p>Dale click al enlace de abajo para restaurar tu cuenta:
-          <a href="${process.env.FRONTEND_URL}olvidepassword/${token}">Restaurar</a> </p>
+          <a href="${process.env.FRONTEND_URL}/olvidepassword/${token}">Restaurar</a> </p>
           <p>Si no solicitaste restaurar tu contraseña puedes ingnorar este correo</p>
           `,
   });
