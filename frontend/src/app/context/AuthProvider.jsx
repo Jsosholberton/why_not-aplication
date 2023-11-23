@@ -25,7 +25,7 @@ const AuthProvider = ({ children }) => {
       };
       try {
         const { data } = await axios.get(
-          `http://johnatanortiz.tech:4000/api/users/profile`,
+          `https://johnatanortiz.tech:4000/api/users/profile`,
           config
         );
         setAuth(data);

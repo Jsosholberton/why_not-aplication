@@ -25,7 +25,7 @@ const Login = () => {
     }
     try {
       const { data } = await axios.post(
-        `http://johnatanortiz.tech:4000/api/users/login`,
+        `https://johnatanortiz.tech:4000/api/users/login`,
         { email, password }
       );
 

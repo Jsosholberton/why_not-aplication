@@ -38,7 +38,7 @@ const Register = () => {
     setAlerta({});
 
     try {
-      const { data } = await axios.post(`http://johnatanortiz.tech:4000/api/users`, {
+      const { data } = await axios.post(`https://johnatanortiz.tech:4000/api/users`, {
         name,
         email,
         password,

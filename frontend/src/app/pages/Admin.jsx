@@ -58,7 +58,7 @@ function Admin() {
       };
       try {
         const { data } = await axios.get(
-          `http://johnatanortiz.tech:4000/api/users/all`,
+          `https://johnatanortiz.tech:4000/api/users/all`,
           config
         );
         setUsers(data);
@@ -75,7 +75,7 @@ function Admin() {
       };
       try {
         const { data } = await axios.get(
-          `http://johnatanortiz.tech:4000/api/tournaments`,
+          `https://johnatanortiz.tech:4000/api/tournaments`,
           config
         );
         setTournaments(data);
@@ -142,7 +142,7 @@ function Admin() {
       try {
         const tournamentFormData = { name, description, date, time, location };
         const response = await axios.patch(
-          `http://johnatanortiz.tech:4000/api/tournaments/${id}`,
+          `https://johnatanortiz.tech:4000/api/tournaments/${id}`,
           tournamentFormData,
           {
             headers: {
@@ -174,7 +174,7 @@ function Admin() {
     try {
       const tournamentFormData = { name, description, date, time, location };
       const response = await axios.post(
-        `http://johnatanortiz.tech:4000/api/tournaments`,
+        `https://johnatanortiz.tech:4000/api/tournaments`,
         tournamentFormData,
         {
           headers: {
@@ -211,7 +211,7 @@ function Admin() {
     try {
       const updateUser = async () => {
         const response = await axios.patch(
-          `http://johnatanortiz.tech:4000/api/users/${user._id}`,
+          `https://johnatanortiz.tech:4000/api/users/${user._id}`,
           config,
           user
         );
@@ -232,7 +232,7 @@ function Admin() {
     };
     try {
       const response = axios.delete(
-        `http://johnatanortiz.tech:4000/api/tournaments/${id}`,
+        `https://johnatanortiz.tech:4000/api/tournaments/${id}`,
         config
       );
       router.push("/admin");
