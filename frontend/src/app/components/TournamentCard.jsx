@@ -7,6 +7,7 @@ import { Tilt } from "react-tilt";
 import { fadeIn } from "../utils/motion";
 import useAuth from "../hooks/useAuth";
 import Alerta from "../components/Alerta";
+import Image from "next/image";
 
 function TournamentCard() {
   const [tournaments, setTournaments] = useState([]);
@@ -93,8 +94,6 @@ function TournamentCard() {
 
   const { msg } = alerta;
 
-  console.log(tournaments);
-
   return (
     <>
       {loading ? (
@@ -105,6 +104,7 @@ function TournamentCard() {
           <div className="mx-10 text-center mt-20 flex flex-wrap gap-10">
             {tournaments.map((tournament, index) => (
               <Tilt
+                key={`${tournament._id}-${index}`}
                 className="xs:w-[250px]"
                 options={{ max: 45, scale: 1, speed: 450 }}
               >
@@ -121,15 +121,14 @@ function TournamentCard() {
                         zIndex: -1,
                       }}
                     />
-                    <img
-                      className="w-full h-32 sm:h-48 object-cover object-top"
-                      src={
-                        tournament.image
-                          ? `/images/${tournament.image}`
-                          : "/images/1.jpg"
-                      }
-                      alt="avatar"
-                    />
+                    <div className="w-full h-32 sm:h-48 relative">
+                      <Image
+                        layout="fill"
+                        objectFit="cover"
+                        src={"/images/1.jpg"}
+                        alt="avatar"
+                      />
+                    </div>
                     <h2 className="text-xl font-semibold text-black">
                       {tournament.name}
                     </h2>
@@ -143,7 +142,9 @@ function TournamentCard() {
                       {tournament.description}
                     </p>
                     <div className="text-center">
-                      {tournament.players.some(player => player._id === auth._id) ? (
+                      {tournament.players.some(
+                        (player) => player._id === auth._id
+                      ) ? (
                         <button
                           className="mx-auto bg-red-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-2"
                           onClick={() => handleLeave(tournament._id)}
