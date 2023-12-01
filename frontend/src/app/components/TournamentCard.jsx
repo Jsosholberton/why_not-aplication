@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import axios from "axios";
 import { motion } from "framer-motion";
 import { Tilt } from "react-tilt";
@@ -14,28 +13,34 @@ function TournamentCard() {
   const [loading, setLoading] = useState(true);
   const { auth } = useAuth();
   const [alerta, setAlerta] = useState({});
-  const navigate = useRouter();
+  const [loadingBtn, setLoadingBtn] = useState({});
 
   useEffect(() => {
-    const getTournaments = async () => {
-      try {
-        const response = await axios.get(
-          `https://johnatanortiz.tech:4000/api/tournaments`
-        );
-        setTournaments(response.data);
-        setLoading(false);
-      } catch (error) {
-        setAlerta({
-          msg: error.response.data.msg,
-          error: true,
-        });
-        setLoading(false);
-      }
-    };
     getTournaments();
   }, []);
 
+  const getTournaments = async () => {
+    try {
+      const response = await axios.get(
+        `https://johnatanortiz.tech:4000/api/tournaments`
+      );
+      setTournaments(response.data);
+      setLoading(false);
+    } catch (error) {
+      setAlerta({
+        msg: error.response.data.msg,
+        error: true,
+      });
+      setLoading(false);
+    }
+  };
+
   const handleRegister = async (id) => {
+    setLoadingBtn((prevLoadingBtns) => ({
+      ...prevLoadingBtns,
+      [id]: true,
+    }));
+
     try {
       const token = localStorage.getItem("token");
 
@@ -57,6 +62,7 @@ function TournamentCard() {
         { user: auth._id },
         config
       );
+      await getTournaments();
       setAlerta({
         msg: "You are correctly logged in the tournament",
         error: false,
@@ -66,10 +72,20 @@ function TournamentCard() {
         msg: error.response.data.message,
         error: true,
       });
+    } finally {
+      setLoadingBtn((prevLoadingBtns) => ({
+        ...prevLoadingBtns,
+        [id]: false,
+      }));
     }
   };
 
   const handleLeave = async (id) => {
+    setLoadingBtn((prevLoadingBtns) => ({
+      ...prevLoadingBtns,
+      [id]: true,
+    }));
+
     try {
       const token = localStorage.getItem("token");
       const config = {
@@ -84,11 +100,17 @@ function TournamentCard() {
         config
       );
       setAlerta({
-        msg: "Your has leave the tournament correctly",
+        msg: "You have left the tournament correctly",
         error: false,
       });
+      await getTournaments();
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoadingBtn((prevLoadingBtns) => ({
+        ...prevLoadingBtns,
+        [id]: false,
+      }));
     }
   };
 
@@ -97,7 +119,9 @@ function TournamentCard() {
   return (
     <>
       {loading ? (
-        <h1>Cargando...</h1>
+        <div className="flex items-center justify-center h-screen">
+          <div className="animate-spin rounded-full h-32 w-32 border-t-4 border-green-500 border-solid"></div>
+        </div>
       ) : (
         <div>
           {msg && <Alerta alerta={alerta} />}
@@ -142,11 +166,16 @@ function TournamentCard() {
                       {tournament.description}
                     </p>
                     <div className="text-center">
-                      {tournament.players.some(
-                        (player) => player._id === auth._id
-                      ) ? (
+                      {loadingBtn[tournament._id] ? (
+                        <button className="mx-auto bg-gray-500 text-white font-bold py-2 px-4 rounded mt-2 relative" disabled>
+                          <span className="inline-block animate-spin rounded-full h-4 w-4 border-t-2 border-white border-opacity-25 mr-2"></span>
+                          <span className="animate-pulse">Loading...</span>
+                        </button>
+                      ) : tournament.players.some(
+                          (player) => player._id === auth._id
+                        ) ? (
                         <button
-                          className="mx-auto bg-red-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-2"
+                          className="mx-auto bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded mt-2"
                           onClick={() => handleLeave(tournament._id)}
                         >
                           Leave
